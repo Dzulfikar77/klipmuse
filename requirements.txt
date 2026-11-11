@@ -1,0 +1,5 @@
+# Core workflow tools: download + transcription.
+# The modules in pipeline/ themselves are stdlib-only except the
+# vision stack (requirements-vision.txt).
+yt-dlp
+faster-whisper

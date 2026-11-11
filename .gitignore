@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+.venv*/
+venv/
+
+# Model binaries (download separately — see pipeline/models/README.md)
+pipeline/models/*.onnx
+pipeline/models/*.task
+
+# Fonts (see assets/fonts/README.md)
+assets/fonts/*.ttf
+
+# Media & production outputs — never commit source videos or clips
+outputs/
+radar-snapshots/
+*.mp4
+*.webm
+*.mkv
+*.wav
+*.mp3
+download/
+
+# Secrets & local config
+.env
+*cookie*
+*token*
+config.local.yaml
+
+# OS / editor
+.DS_Store
+*.log

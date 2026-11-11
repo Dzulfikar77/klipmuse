@@ -1,0 +1,7 @@
+# Vision stack for thumbnail.py, tracking.py, tracking_v2.py
+numpy
+opencv-python
+mediapipe
+Pillow
+rembg
+onnxruntime
