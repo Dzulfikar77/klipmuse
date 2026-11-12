@@ -6,9 +6,16 @@ tracking wajah/pembicara, thumbnail standar CTR, dan paket SEO —
 dengan pemilihan momen yang **bisa diaudit** (scorecard tertulis,
 bukan potongan asal).
 
-Dibangun dan dipakai dalam produksi nyata sejak Nov 2026: 4 klip
-selesai (podcast & wawancara olahraga), termasuk satu klip ujian
-dengan skor viral 89/100 dan paket SEO 100/100.
+Dibangun dan dipakai dalam produksi nyata sejak Nov 2026: 5 produksi
+selesai (4 klip tunggal podcast & wawancara olahraga + 1 kompilasi
+ranking Top 5), termasuk satu klip ujian dengan skor viral 89/100
+dan paket SEO 100/100. **Format produksi saat ini: kompilasi ranking**
+dengan target kapasitas 20+ video/hari — lihat `docs/CAPACITY-PLAN.md`.
+
+> **Untuk agen AI (Muse dan sejenisnya): baca [`MUSE.md`](MUSE.md)
+> terlebih dahulu.** Di sana ada keadaan terbaru proyek, aturan keras
+> produksi, dan aturan presedensi dokumen (versi terbaru menimpa yang
+> lama bila ada isi dobel/bertentangan).
 
 ## Cara kerja (5 tahap)
 
@@ -32,15 +39,18 @@ Blueprint lengkap: `docs/ORCHESTRATION.md`.
 ```
 pipeline/   Modul inti (saling impor secara flat — jalankan dari folder ini)
   clip_recipe.py   Recipe JSON -> momen (indeks kata + anchor) + ASS caption/hook
+  compile_ranking.py  Penggabung kompilasi ranking Top 5 (badge, intro, xfade) — format berjalan
   hook_overlay.py  Hook overlay ASS, 6 preset animasi, default produksi teruji
   tracking.py      Tracking v1: mode face / motion / full
   tracking_v2.py   Deteksi adegan, layout per adegan, pembicara aktif (gerakan mulut)
   thumbnail.py     Thumbnail standar CTR: YuNet + skor ekspresi + cut-out
   seo_package.py   Paket SEO dari autocomplete YouTube + skor paket 0-100
   models/          Tempat model ONNX/Task (tidak di-commit, lihat models/README.md)
-docs/       Standar tertulis: produksi, scorecard, SEO, thumbnail, recipe, orkestrasi
+docs/       Standar tertulis: produksi, scorecard, SEO, thumbnail, recipe, orkestrasi,
+            kompilasi ranking, rencana kapasitas 20+/hari, catatan dukungan downloader
 examples/   Contoh recipe JSON dari klip produksi nyata
 tools/      radar_hot.py — snapshot papan hot-search Douyin (butuh checkout Evil0ctal v4)
+            tiktokapi_probe.py — probe sesi TikTok-Api (butuh venv TikTokApi + Playwright)
 assets/     Font Anton (tidak di-commit, lihat assets/fonts/README.md)
 ```
 

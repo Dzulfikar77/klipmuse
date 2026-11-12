@@ -4,6 +4,19 @@ Tujuan: ViralMint tidak dipakai sendirian. Ia jadi **satu lapis** dalam
 sistem yang lebih kuat — kekurangannya ditutup modul lain, kelebihannya
 (scouting + skor viral) dipakai penuh.
 
+## Keputusan terbaru (2026-11-12) — menimpa bagian mana pun yang bertentangan
+
+- **Format produksi saat ini: kompilasi ranking** (Top 5 countdown),
+  bukan klip tunggal. Target kapasitas **20+ video/hari** dalam 4 blok
+  × 5 — rancangan lengkap di `CAPACITY-PLAN.md`.
+- **Urutan sumber: TikTok dulu** (sinyal paling awal + sumber utama),
+  **YouTube Shorts sebagai pelengkap** versi yang tidak ada di TikTok,
+  lalu proses (video + thumbnail), lalu upload.
+- **Thumbnail tidak disematkan ke video** — lihat Lapis 4. Praktik lama
+  `clip-with-cover.mp4` dicabut.
+- **TikTok-Api (davidteather) terpasang** sebagai lapis pencarian
+  TikTok (Lapis 1) — menunggu proxy residensial untuk live.
+
 ## Alur (5 lapis)
 
 ### Lapis 1 — Radar sumber (menjawab: video apa yang layak di-clip?)
@@ -14,6 +27,15 @@ sistem yang lebih kuat — kekurangannya ditutup modul lain, kelebihannya
   lihat catatan versi di bawah) — data TikTok/Douyin self-hosted,
   pengganti TikHub berbayar yang selama ini jadi syarat scout
   TikTok di ViralMint. Peran sekarang: radar tren.
+- **TikTok-Api / davidteather** (TERPASANG 2026-11-12, venv khusus +
+  Playwright Chromium; probe di `tools/tiktokapi_probe.py`) — lapis
+  **pencarian** TikTok: search keyword/hashtag, trending, data
+  per-video. Unduh per ID tetap lewat tikwm (terbukti). Status live:
+  sesi dari VM terhalang jaringan (Chromium gagal tunnel lewat proxy
+  egress) — menunggu **proxy residensial** dan/atau ms_token pengguna,
+  sama seperti Evil0ctal per-video. Bukan API resmi TikTok; tidak ada
+  API key yang harus disediakan pengguna. Penilaian lengkap:
+  `DOWNLOADER-SUPPORT-2026-11-12.md`.
 - **Reddit Rising** (praktik radar, belum jadi modul) — tab Rising =
   sinyal paling awal; postingan Rising yang menautkan video YouTube
   bisa masuk antrean sumber. ViralMint sendiri hanya memakai Reddit
@@ -43,7 +65,11 @@ sistem yang lebih kuat — kekurangannya ditutup modul lain, kelebihannya
   pembicara aktif) → hook standar produksi → caption word-by-word →
   QA sinkron (transkrip ulang klip final, offset median ≈ 0) →
   thumbnail segar per klip (tidak templated) → paket SEO
-  (SEO-STANDARD.md, skor ≥80) → clip.mp4 + clip-with-cover.mp4.
+  (SEO-STANDARD.md, skor ≥80) → clip.mp4 + thumbnail sebagai file
+  terpisah. **Thumbnail TIDAK disematkan sebagai frame pembuka video**
+  (aturan pengguna 2026-11-12: video mulai langsung dengan hook di
+  detik 0; praktik lama `clip-with-cover.mp4` sudah dicabut — jangan
+  dipakai lagi, termasuk bila disebut di dokumen/catatan lama).
 - 22 tool editing ViralMint dan generator video-dari-naskah tidak
   dipakai: sudah tertutup pipeline sendiri / beda jenis konten.
 
@@ -65,10 +91,16 @@ sistem yang lebih kuat — kekurangannya ditutup modul lain, kelebihannya
 | Tanpa umpan balik performa channel | YouTube OAuth + analitik |
 
 ## Status jujur
-- Lapis 3–4 sudah terbukti jalan (4 klip selesai).
-- Lapis 1–2: tool-nya ada, tapi scout ViralMint **belum pernah
-  dijalankan live** di proyek ini — semua sumber klip sejauh ini
-  pemberian pengguna. Proof run pertama masih menunggu niche.
+- Lapis 3–4 sudah terbukti jalan (4 klip tunggal + 1 kompilasi ranking
+  Top 5 "first time fancy cafe", 2026-11-11, dinilai bagus oleh
+  pengguna).
+- Lapis 1 sisi TikTok terbukti lewat jalur tikwm (unduh per ID) pada
+  run kompilasi itu. Scout ViralMint sisi YouTube **belum pernah
+  dijalankan live** — tertahan HTTP 429 yang sama dengan jalur unduh
+  YouTube dari IP VM (dua tes PO Token, 11 & 12 Nov, sama-sama gugur
+  di langkah webpage sebelum token sempat bekerja). Pembukanya:
+  proxy residensial (rancangan di `CAPACITY-PLAN.md`) atau cookie
+  sesi akun cadangan dari pengguna.
 - Lapis 5 menunggu OAuth pengguna.
 
 ## Catatan pemasangan Evil0ctal (2026-11-11)

@@ -66,3 +66,13 @@ dan teks setiap thumbnail dirancang segar mengikuti konten &
 momen klipnya (kreativitas per kasus). Yang tetap hanya prinsip
 mutunya: zona aman, uji keterbacaan ukuran kecil, subjek ekspresif
 dominan, teks membangkitkan penasaran, tidak mengulang judul.
+
+## Aturan pengiriman (2026-11-12 — menimpa praktik lama)
+
+Thumbnail dikirim sebagai **file terpisah** dan TIDAK PERNAH disematkan
+sebagai frame pembuka di dalam video. Video harus mulai langsung
+dengan konten hook di detik 0 — frame thumbnail yang diam di awal
+adalah jeda yang membunuh retensi detik pertama. Praktik lama
+`clip-with-cover.mp4` (thumbnail ditanam 0,5 detik di awal) sudah
+dicabut oleh pengguna pada 2026-11-12; jangan dihidupkan lagi dari
+catatan atau dokumen lama mana pun.
